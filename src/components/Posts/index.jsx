@@ -1,5 +1,9 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useGetPostsQuery } from '../../services';
+
+import { setPost } from '../../redux/reducer/posts';
 
 const PostCard = ({ content }) => {
   return (
@@ -21,6 +25,10 @@ function PostsList() {
     isError,
     error,
   } = useGetPostsQuery();
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state);
+
+  console.log('sfff', state);
   let postContent;
   if (isLoading) {
     postContent = (
@@ -31,9 +39,12 @@ function PostsList() {
       </div>
     );
   } else if (isSuccess) {
-    postContent = posts.map((item) => {
-      return <PostCard content={item} key={item.id} />;
-    });
+    // dispatch(setPost(posts.slice(0, 3)));
+    postContent = posts
+      .map((item) => {
+        return <PostCard content={item} key={item.id} />;
+      })
+      .slice(0, 3);
   } else if (isError) {
     postContent = (
       <div className="alert alert-danger" role="alert">

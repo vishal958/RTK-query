@@ -8,8 +8,17 @@ export const apiSlice = createApi({
   endpoints: (builder) => ({
     getPosts: builder.query({
       query: () => '/posts',
+      providesTags: ['Post'],
+    }),
+    addPost: builder.mutation({
+      query: (post) => ({
+        url: '/posts',
+        method: 'POST',
+        body: post,
+      }),
+      invalidatesTags: ['Post'],
     }),
   }),
 });
 
-export const { useGetPostsQuery } = apiSlice;
+export const { useGetPostsQuery, useAddPostMutation } = apiSlice;
