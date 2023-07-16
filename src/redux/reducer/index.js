@@ -1,10 +1,10 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import postsReducer from './posts';
-import { apiSlice } from '../../services';
+import { api } from '../../services';
 
 const rootReducer = combineReducers({
   posts: postsReducer,
-  [apiSlice.reducerPath]: apiSlice.reducer,
+  [api.reducerPath]: api.reducer,
 });
 
 export default rootReducer;
